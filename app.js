@@ -1,5 +1,5 @@
 // Vanilla JavaScript Memory Card Game
-// Inspired by freeCodeCamp.org youtube video https://youtu.be/lhNdUVh3qCc
+// Inspired by freeCodeCamp.org YouTube video https://youtu.be/lhNdUVh3qCc
 
 document.addEventListener("DOMContentLoaded", () => {
   // Card Options
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
   var gameOver = false;
   var gamePause = false;
   var timeLeft = maxTime;
-
+  var setIntervalId;
   // grab the html canvas actual canvas
   const gCanvas = gameCanvas.getContext("2d");
   const cardSetup = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5];
@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ticTocCount = 4;
     isRunning = true;
 
-    setInterval(runGame, timeInterval);
+    setIntervalId = setInterval(runGame, timeInterval);
   }
 
   // Runs the game
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
       isRunning = false;
       gamePause = false;
       startButton.textContent = "Start";
-      clearInterval(runGame);
+      clearInterval(setIntervalId);
     }
     if (gameOver) {
       redrawGame();
@@ -245,12 +245,13 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    // Absolute geometry of the canvas element
+    // left and top are the offset
     // Some weird offset
-    var xOffset = 9;
+    var canvasRect = gameCanvas.getBoundingClientRect();
     // alert("x: " + event.x + " y: " + event.y);
-    var cardX = Math.floor((event.x - xOffset) / 100);
-    var yOffset = 162;
-    var cardY = Math.floor((event.y - yOffset) / 100);
+    var cardX = Math.floor((event.x - canvasRect.left) / 100);
+    var cardY = Math.floor((event.y - canvasRect.top) / 100);
     // alert("Card x: " + cardX + " Card y: " + cardY);
 
     // conversion is not exact, need to prevent out of bound
