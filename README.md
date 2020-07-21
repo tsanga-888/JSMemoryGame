@@ -1,2 +1,2 @@
 # JSMemoryGame
-Vanilla JavaScript memory card came
+Vanilla JavaScript memory card game
